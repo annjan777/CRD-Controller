@@ -45,6 +45,10 @@ CRD-Controller is a comprehensive solution for remote device management. It inte
 - Python 3.8+
 - Django
 - Mosquitto MQTT broker
+- NodeRed
+- Paho-MQTT
+- AWS IoT
+- AWS EC2 Instance
 
 ### Setup
 
