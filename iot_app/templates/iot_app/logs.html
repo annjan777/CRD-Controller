@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRD Controller - Logs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .left {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .right {
+            font-size: 14px;
+        }
+
+        .header .right a {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+
+        /* Menu styling */
+        .menu {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #333;
+        }
+
+        .menu .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .menu ul li {
+            margin: 0 10px;
+        }
+
+        .menu ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .menu ul li a:hover {
+            color: #4CAF50;
+        }
+
+        .menu .logo {
+            height: 40px;
+        }
+
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            .menu ul {
+                display: none;
+                flex-direction: column;
+            }
+
+            .menu .hamburger {
+                display: block;
+                font-size: 24px;
+            }
+
+            .menu.active ul {
+                display: flex;
+                width: 100%;
+            }
+
+            .menu.active ul li {
+                margin: 10px 0;
+            }
+        }
+
+        /* Logs display */
+        .logs-container {
+            padding: 20px;
+            background-color: #fff;
+            margin: 20px auto;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logs-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+        }
+
+        .logs-container .log {
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .logs-container .log strong {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="left">CRDController</div>
+        <div class="right">
+            <a href="mailto:info@crdcontroller.com">info@crdcontroller.com</a>
+            <a href="tel:+1234567890">+1234567890</a>
+        </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="{% url 'publish_to_iot' %}">Status</a></li>
+            <li><a href="#update">Update</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="{% url 'view_logs' %}">Logs</a></li>
+        </ul>
+    </div>
+
+    <!-- Logs Container -->
+    <div class="logs-container">
+        <h2>Logs</h2>
+        {% for topic, message, timestamp in received_messages %}
+            <div class="log">
+                <strong>Topic:</strong> {{ topic }}
+                <strong>Message:</strong> {{ message }}
+                <strong>Received at:</strong> {{ timestamp }}
+            </div>
+        {% endfor %}
+        {% for topic, message, timestamp in sent_messages %}
+            <div class="log">
+                <strong>Topic:</strong> {{ topic }}
+                <strong>Message:</strong> {{ message }}
+                <strong>Sent at:</strong> {{ timestamp }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        // JavaScript for toggling the menu
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
