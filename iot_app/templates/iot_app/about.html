@@ -130,11 +130,11 @@
             padding: 20px;
         }
 
-        footer {
+        .footer {
+            text-align: center;
+            padding: 20px;
             background-color: #333;
             color: white;
-            text-align: center;
-            padding: 10px 0;
             margin-top: 20px;
         }
     </style>
@@ -155,14 +155,11 @@
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'publish_to_iot' %}">Status</a></li>
+                <li><a href="{% url 'status' %}">Status</a></li>
                 <li><a href="{% url 'update' %}">Update</a></li>
                 <li><a href="{% url 'view_logs' %}">Logs</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
-            <div class="menu-icon">
-                &#9776; <!-- Hamburger icon -->
-            </div>
             
         </nav>
 
@@ -186,5 +183,6 @@
         <!-- Placeholder content -->
         <p>&copy; 2024 CRDController. All rights reserved.</p>
     </div>
+    
 </body>
 </html>

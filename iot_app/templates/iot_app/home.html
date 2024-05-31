@@ -155,22 +155,19 @@
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'publish_to_iot' %}">Status</a></li>
+                <li><a href="{% url 'status' %}">Status</a></li>
                 <li><a href="{% url 'update' %}">Update</a></li>
                 <li><a href="{% url 'view_logs' %}">Logs</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
-            <div class="menu-icon">
-                &#9776; <!-- Hamburger icon -->
-            </div>
             
         </nav>
         
 
         <div class="slideshow">
             <button class="arrow left">&#10094;</button>
-            <img src="{% static 'images/slide1.jpg' %}" alt="Slide 1"> <!-- Example of using static for slideshow images -->
-            <img src="{% static 'images/slide2.jpg' %}" alt="Slide 2"> <!-- Example of using static for slideshow images -->
+            <img src="{% static 'images/slide1.png' %}" alt="Slide 1"> <!-- Example of using static for slideshow images -->
+            <img src="{% static 'images/slide2.png' %}" alt="Slide 2"> <!-- Example of using static for slideshow images -->
             <button class="arrow right">&#10095;</button>
         </div>
 

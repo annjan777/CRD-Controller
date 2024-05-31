@@ -16,7 +16,7 @@
 
         /* Header styling */
         .header {
-            background-color: #4CAF50;
+            background-color: #000000;
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -115,14 +115,14 @@
         .logs-container h2 {
             margin-bottom: 20px;
             font-size: 24px;
-            color: #4CAF50;
+            color: #000000;
         }
 
         .logs-container .log {
             padding: 10px;
             background-color: #f1f1f1;
             margin-bottom: 10px;
-            border-left: 5px solid #4CAF50;
+            border-left: 5px solid #000000;
         }
 
         .logs-container .log strong {
@@ -145,11 +145,11 @@
         <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="{% url 'publish_to_iot' %}">Status</a></li>
-            <li><a href="#update">Update</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'status' %}">Status</a></li>
+            <li><a href="{% url 'update' %}">Update</a></li>
             <li><a href="{% url 'view_logs' %}">Logs</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
     </div>
 
