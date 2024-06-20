@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os  # Make sure to import os module
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'iot_app',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'my_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Ensure this path is correct
+        'DIRS': [],  # Ensure this path is correct
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,6 +79,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -123,3 +125,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# authorization
+LOGIN_URL = '/user_login/'
+LOGIN_REDIRECT_URL = '/user_dashboard/'
+LOGOUT_REDIRECT_URL = '/user_login/'

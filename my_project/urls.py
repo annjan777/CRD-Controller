@@ -15,12 +15,12 @@ Including another URLconf
 """
 # my_project/urls.py
 
-from django.urls import path, include
+from django.urls import include, path
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/iot/home')),
-    path('iot/', include('iot_app.urls')),
+    path('', RedirectView.as_view(url='/home')),
+    path('', include('iot_app.urls')),
     # other URL patterns for your project
    
 ]
