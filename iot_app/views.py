@@ -1,3 +1,4 @@
+# views.py
 import random
 import threading
 import time
@@ -40,9 +41,11 @@ def subscribe():
         message = msg.payload.decode().strip()  # Remove any line breaks or spaces
         print(f"Received `{message}` from `{msg.topic}` topic")
         current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-        
+
         # Save to database
-        ReceivedMessage.objects.create(topic=msg.topic, message=message)
+        # Assuming you have a way to get the current user. Modify this as needed.
+        user = User.objects.get(username='some_username')  # Replace 'some_username' with the actual username
+        ReceivedMessage.objects.create(user=user, topic=msg.topic, message=message)
         # Optionally, keep in-memory list (if still needed)
         received_messages.append((msg.topic, message, current_time))
         if len(received_messages) > 10:  # Keep only the last 10 messages
@@ -137,11 +140,15 @@ def logout_view(request):
         return redirect('admin_login')
     else:
         return redirect('user_login')
+
 @login_required
 def view_logs(request):
     if request.is_ajax():
+        user_messages = ReceivedMessage.objects.filter(user=request.user).order_by('-timestamp')[:10]
+        received_messages = [{'topic': msg.topic, 'message': msg.message, 'timestamp': msg.timestamp} for msg in user_messages]
         return JsonResponse({'received_messages': received_messages})
     return render(request, 'iot_app/logs.html', {'received_messages': received_messages})
+
 @login_required
 def debug(request):
     return render(request, 'iot_app/debug.html')
@@ -157,6 +164,7 @@ PARAMETER_CODES = {
     'cable_slagness': {'Safe': 'm', 'Warning': 'n'},
     'chain_snap': {'Safe': 'o', 'Warning': 'p'},
     'motor_selection': {'q': 'VFD', 'r': 'Stall Torque'},
+# views.py continued
     'feed_selection': {'s': 'End', 't': 'Center'},
     'local_remote_mode_selection': {'u': 'Remote', 'v': 'Local'},
     'left_right_sensor': {'w': 'Proximity', 'x': 'Inclination', 'y': 'PLS'},
@@ -188,15 +196,15 @@ def update(request):
 
 @login_required
 def status(request):
-    context = get_decoded_params()
+    context = get_decoded_params(request.user)
     return render(request, 'iot_app/update.html', context)
 
 @login_required
 def get_status(request):
-    decoded_params = get_decoded_params()
+    decoded_params = get_decoded_params(request.user)
     return JsonResponse(decoded_params)
 
-def get_decoded_params():
+def get_decoded_params(user):
     decoded_params = {
         'manual_travel_length': None,
         'motor_selection': None,
@@ -206,7 +214,7 @@ def get_decoded_params():
         'travel_sensor': None,
     }
 
-    messages = ReceivedMessage.objects.order_by('-timestamp')[:6]
+    messages = ReceivedMessage.objects.filter(user=user).order_by('-timestamp')[:6]
 
     for msg in messages:
         message = msg.message.strip()
@@ -223,7 +231,7 @@ def get_decoded_params():
 
 @csrf_exempt
 def toggle_debug_mode(request):
-    topic1= "REC"
+    topic1 = "REC"
     if request.method == 'POST':
         debug_mode = request.POST.get('debug_mode') == 'true'
         message = '-' if debug_mode else '+'
