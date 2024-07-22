@@ -24,7 +24,8 @@ CRD-Controller is a comprehensive solution for remote device management. It inte
 
 ## Architecture
 
-![CRD-Controller Architecture](/architecture.jpg)
+![image](https://github.com/annjan777/CRD-Controller/assets/133907685/a354c934-b727-4d73-ad36-33717e910866)
+
 
 1. **Django Web Application**: Provides a user-friendly interface to monitor and control devices.
 2. **Raspberry Pi**: Acts as a bridge between the web application and ESP32, handling data transmission.
